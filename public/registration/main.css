@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Merriweather";
+  letter-spacing: 0em;
+}
+
+body {
+  background-color: #5798BC24;
+}
+
+.container {
+  width: 554px;
+  margin: 0 auto;
+}
+
+.registration {
+  margin-top: 140px;
+  padding: 12px 94px 46px 94px;
+  background-color: #7EADC8B8;
+  width: 554px;
+  min-height: 365px;
+  border-radius: 50px;
+}
+.registration__header {
+  font-weight: 400;
+  font-size: 40px;
+  color: #fff;
+  text-shadow: 0px 10px 10px #437693;
+  text-align: center;
+}
+.registration__text {
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.63);
+  text-align: center;
+}
+.registration__text a {
+  margin-left: 7px;
+  color: #fff;
+  text-decoration: none;
+}
+.registration input {
+  background-color: #5798BCC7;
+  border-radius: 25px;
+  outline: none;
+  border: 2px solid #437693C9;
+  box-shadow: inset 4px 4px 4px rgba(0, 0, 0, 0.25);
+  width: 368px;
+  height: 35px;
+  text-align: center;
+  font-size: 14px;
+  color: #FFFFFFA1;
+}
+.registration input::-webkit-input-placeholder {
+  color: #FFFFFFA1;
+}
+.registration .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+.registration .form__message {
+  color: red;
+  font-size: 12px;
+}
+.registration .form__field-container {
+  margin-bottom: 20px;
+}
+.registration .form__primary-button {
+  margin-top: 4px;
+  width: 280px;
+  height: 30px;
+  color: #5B96B8;
+  font-size: 20px;
+  box-shadow: 0px 4px 25px #437693;
+  border-radius: 50px;
+  background-color: #fff;
+  border: none;
+}
+
+/*# sourceMappingURL=main.css.map */

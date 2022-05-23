@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./main.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container">
+      <h1 class="header__text">Online Daily Schedule Planner</h1>
+      <button class="header__button" id="log-out">Log out</button>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+      <div class="create-button-container">
+        <button data-open-popup="editor" class="main__primary-button main__primary-button--b">Create</button>
+      </div>
+      <section class="list-section">
+        <div class="list">
+          <div class="list__top" id="top">
+            <p class="list__text">ToDo</p>
+          </div>
+          <div class="container" data-container-name="toDo"></div>
+        </div>
+        <div class="list">
+          <div class="list__top" id="top">
+            <p class="list__text">Done</p>
+          </div>
+          <div class="container" data-container-name="done"></div>
+        </div>
+      </section>
+    </div>
+    </div>
+  </main>
+
+  <div class="popup" id="time-setter">
+    <div class="popup__content">
+      <div class="popup__body">
+        <div class="popup__field-container">
+          <input type="datetime-local" id="date-input" name="date">
+          <span class="form__message"></span>
+        </div>
+        <div class="card__button-container">
+          <button class="main__primary-button" id="send-time">ok</button>
+          <button data-close-popup="time-setter" class="main__primary-button" id="cancel">cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup popup--editor" id="editor">
+    <div class="popup__content">
+      <div>
+        <h1 class="main__header">Add your note !</h1>
+        <div class="card">
+          <div class="card__note-modification">
+            <h3 class="card__header card__header--s">Choose the color :</h3>
+            <div class="color-list">
+              <div class="color-list__color"></div>
+              <div class="color-list__color"></div>
+              <div class="color-list__color"></div>
+              <div class="color-list__color"></div>
+              <div class="color-list__color"></div>
+              <div class="color-list__color"></div>
+              <div class="color-list__color"></div>
+            </div>
+          </div>
+          <div class="card__note-modification">
+            <h3 class="card__header card__header--s">Choose your font-family :</h3>
+            <select name="select" id="fontFamily">
+              <option value="Roboto Serif">Roboto Serif</option>
+              <option value="Syne">Syne Tactile</option>
+              <option value="Lato">Lato</option>
+              <option value="Redressed">Redressed</option>
+              <option value="Festive">Festive</option>
+              <option value="Shizuru">Shizuru</option>
+              <option value="Oswald">Oswald</option>
+              <option value="Prompt" selected>Prompt</option>
+            </select>
+          </div>
+          <div class="card__note-modification">
+            <h3 class="card__header card__header--s">Choose your font-size :</h3>
+            <select name="font-size" id="fontSize">
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+            </select>
+          </div>
+          <div class="card__note-modification">
+            <h3 class="card__header card__header--s">Add status :</h3>
+            <label class="card__radiobox" for="status-toDo">
+              <p class="card__header--s">ToDo</p>
+              <input type="radio" name="status" value="toDo" id="default" checked>
+            </label>
+            <label class="card__radiobox" for="status-done">
+              <p class="card__header--s">Done</p>
+              <input type="radio" name="status" value="done">
+            </label>
+          </div>
+          <h1 class="card__header">Enter some text :</h1>
+          <input class="card__input" id="text" type="text">
+          <div class="card__note-modification">
+            <div class="button-container">
+              <button class="main__primary-button main__primary-button--s" id="cross-out">cross out</button>
+              <button class="main__primary-button main__primary-button--s" id="bold">bold</button>
+              <button data-open-popup="time-setter" class="main__primary-button main__primary-button--s">set
+                time</button>
+              <button class="main__primary-button main__primary-button--s" id="underline">underline</button>
+            </div>
+          </div>
+          <div class="container">
+            <textarea name="" id="area" class="main__textarea"></textarea>
+            <div class="card__button-container">
+              <button class="main__primary-button" id="save">Save</button>
+              <button class="main__primary-button" id="clear">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button data-close-popup="editor" class="popup__close-button" id="close-button">
+    </div>
+  </div>
+  <script type="module" src="./script.js"></script>
+</body>
+
+</html>
