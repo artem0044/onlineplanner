@@ -12,7 +12,7 @@ const validators = {
     return `value should not be shorter then ${length} symbols`;
   },
   onlyCharsAndNumbers: value => /^[a-zA-Z0-9]+$/.test(value) ? null : "Should contain only chars and numbers",
-  password: value => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]*$/.test(value) ? null : "Ти шо дибіл? введи нормальний пароль",
+  password: value => /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]*$/.test(value) ? null : "password is not valid",
   email: value => /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value) ? null : "Invalid email format",
 };
 

@@ -5,7 +5,7 @@ import { ObjectId } from 'mongodb';
 
 const createSticker = async ({ userId, request, response, collections }) => {
   const body = await getRequestBody(request);
-
+  console.log(body);
   const userStickerModels = await collections.stickersCollection.find({ userId }).toArray();
   const order = userStickerModels.length;
 
@@ -48,6 +48,9 @@ const updateSticker = async ({ response, request, collections }) => {
         bgColor: body.style.bgColor,
         fontFamily: body.style.fontFamily,
         fontSize: body.style.fontSize,
+        toBold: body.style.toBold,
+        underline: body.style.underline,
+        cross: body.style.cross,
       },
       timestamp: body.timestamp,
       status: body.status,
@@ -83,7 +86,7 @@ const reorderSticker = async ({ response, request, collections }) => {
   const body = await getRequestBody(request);
   const userStickerModels = await collections.stickersCollection.find({ userId }).toArray();
 
-  const { value: sticker } = await collections.stickersCollection.findOneAndUpdate({ _id: ObjectId(body.stickerId) }, { $set: { order: userStickerModels.length + 1  } },
+  const { value: sticker } = await collections.stickersCollection.findOneAndUpdate({ _id: ObjectId(body.stickerId) }, { $set: { order: userStickerModels.length + 1 } },
     {
       returnDocument: 'after'
     });

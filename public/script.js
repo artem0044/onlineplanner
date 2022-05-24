@@ -41,6 +41,7 @@ logOut.addEventListener("click", () => {
 // *****Note features********
 
 function cross() {
+  area.classList.toggle("main__text-decor");
 }
 
 crossOut.addEventListener("click", cross);
@@ -50,7 +51,6 @@ toBoldText.addEventListener("click", () => {
 });
 
 underline.addEventListener("click", () => {
-  area.classList.remove("main__text-decor");
   area.classList.toggle("main__text-underline");
 });
 
@@ -78,7 +78,7 @@ let timestamp = '';
 const dateInput = document.getElementById('date-input');
 const noteContainers = document.querySelectorAll('[data-container-name]');
 const defaultRadioButton = document.getElementById('default');
-let order;
+
 
 const clearArea = () => {
   enterTextInput.value = '';
@@ -88,10 +88,11 @@ const clearArea = () => {
   area.style.backgroundColor = '';
   area.style.fontFamily = '';
   area.style.fontSize = '';
+  area.classList.remove('main__text-decor', 'main__to-bold', 'main__text-underline');
+
 };
 
 const renderStickers = (stickerList) => {
-  // console.log(stickerList);
 
   noteContainers.forEach(noteContainer => {
     for (let container of Array.from(noteContainer.querySelectorAll('div'))) {
@@ -99,9 +100,9 @@ const renderStickers = (stickerList) => {
     }
   });
 
-  stickerList.sort((a, b) => {
-    return a.order - b.order;
-  });
+  // stickerList.sort((a, b) => {
+  //   return a.order - b.order;
+  // });
 
   stickerList.map(data => {
     const container = document.querySelector(`[data-container-name="${data.status}"]`);
@@ -114,6 +115,18 @@ const renderStickers = (stickerList) => {
     copyArea.classList.add('main__textarea--copy');
     copyArea.readOnly = true;
     copyArea.style.cursor = 'default';
+
+    if (data.style.toBold) {
+      copyArea.classList.add('main__to-bold');
+    }
+
+    if (data.style.underline) {
+      copyArea.classList.add('main__text-underline');
+    }
+
+    if (data.style.cross) {
+      copyArea.classList.add('main__text-decor');
+    }
 
     const topStripe = document.createElement('div');
     topStripe.classList.add('list__top-stripe');
@@ -135,10 +148,11 @@ const renderStickers = (stickerList) => {
     del.setAttribute('data-stickerId', data.id);
 
     if (data.timestamp) {
-      const different = new Date().getTime() - timestamp;
+      const different = data.timestamp - Date.now();
+
       setTimeout(() => {
-        copyArea.style.border = '3px red solid';
-      }, different)
+        copyArea.style.border = '2px red solid';
+      }, different);
     }
 
     topStripe.append(edit, del);
@@ -154,7 +168,6 @@ send('http://localhost:3000/api/stickers').then((data) => {
   renderStickers(data);
 });
 
-const status = document.querySelector('input[name="status"]:checked').value;
 save.addEventListener("click", () => {
   const data = {
     content: area.value,
@@ -162,6 +175,9 @@ save.addEventListener("click", () => {
       bgColor: area.style.backgroundColor,
       fontFamily: area.style.fontFamily,
       fontSize: area.style.fontSize,
+      toBold: area.classList.contains('main__to-bold'),
+      underline: area.classList.contains('main__text-underline'),
+      cross: area.classList.contains("main__text-decor"),
     },
     timestamp,
     status: document.querySelector('input[name="status"]:checked').value,
@@ -173,17 +189,16 @@ save.addEventListener("click", () => {
       .then((data) => {
         const sticekerToUpdate = stickerList.find(sticker => sticker.id == stickerId);
 
-        if (sticekerToUpdate.status != data.status) {
-          const orderData = {
-            stickerId,
-            oldOrder: sticekerToUpdate.order,
-            newOrder: null,
-          };
+        // if (sticekerToUpdate.status != data.status) {
+        //   const orderData = {
+        //     stickerId,
+        //     oldOrder: sticekerToUpdate.order,
+        //     newOrder: null,
+        //   };
 
-          send('http://localhost:3000/api/stickers/reorder', { method: 'PUT', body: JSON.stringify(orderData), credentials: 'include' });
-        }
+        //   send('http://localhost:3000/api/stickers/reorder', { method: 'PUT', body: JSON.stringify(orderData), credentials: 'include' });
+        // }
 
-        console.log(sticekerToUpdate.status);
         sticekerToUpdate.content = data.content;
         sticekerToUpdate.style.bgColor = data.style.bgColor;
         sticekerToUpdate.style.fontFamily = data.style.fontFamily;
@@ -193,8 +208,9 @@ save.addEventListener("click", () => {
 
         const stickerIndex = stickerList.indexOf(sticekerToUpdate);
         const sticker = stickerList.splice(stickerIndex, 1)[0];
-        stickerList.splice(stickerList.length, 0, sticker);
-
+        stickerList.push(sticker);
+        
+        console.log(stickerList);
         renderStickers(stickerList);
 
         clearArea();
@@ -212,7 +228,6 @@ save.addEventListener("click", () => {
       stickerList.push(data);
 
       renderStickers(stickerList);
-      console.log(stickerList);
     })
     .catch(err => console.log(err));
 
