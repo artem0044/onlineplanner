@@ -299,6 +299,7 @@ body {
   height: 35px;
 }
 .list__note-container {
+  height: 300px;
   border-radius: 0px;
   position: relative;
   width: fit-content;
